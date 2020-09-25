@@ -1,0 +1,3 @@
+# Caisse enregistreuse app
+
+Application Spring Boot BackEnd ReactJS and material UI FrontEnd , est une caisse enregistreuse initialisant un projet pour notre client Lilly Gourmet Shop spécialité Boulangerie et pâtisserie , API REST offrant plusieurs services ....
