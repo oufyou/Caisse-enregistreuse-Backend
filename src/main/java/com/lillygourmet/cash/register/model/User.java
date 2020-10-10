@@ -33,6 +33,7 @@ import java.util.Date;
                 @UniqueConstraint(columnNames = "email")
         })
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
 
     @Id

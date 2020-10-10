@@ -23,6 +23,7 @@ import java.util.Set;
  */
 
 @Entity
+@AttributeOverride(name="id", column=@Column(name="customer_id"))
 @Table(	name = "customers",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "code")

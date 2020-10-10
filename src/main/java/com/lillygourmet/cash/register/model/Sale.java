@@ -68,6 +68,15 @@ public class Sale {
         this.finished = finished;
     }
 
+    public Sale(Customer customer, Caissier caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished) {
+        this.customer = customer;
+        this.caissier = caissier;
+        this.saleLines = saleLines;
+        this.total = total;
+        this.finished = finished;
+    }
+
+
     public Long getId() {
         return id;
     }

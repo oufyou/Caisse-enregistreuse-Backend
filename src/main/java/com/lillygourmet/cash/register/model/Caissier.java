@@ -23,10 +23,12 @@ import java.util.Set;
  */
 
 @Entity
+@AttributeOverride(name="id", column=@Column(name="caissier_id"))
 @Table(	name = "caissiers",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "code")
         })
+
 @EntityListeners(AuditingEntityListener.class)
 public class Caissier extends Employee{
 

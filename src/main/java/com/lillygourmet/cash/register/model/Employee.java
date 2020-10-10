@@ -28,11 +28,13 @@ import java.util.Set;
  */
 
 @Entity
+@AttributeOverride(name="id", column=@Column(name="employee_id"))
 @Table(	name = "employees",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "cin")
         })
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Employee extends User{
 
     @NotBlank

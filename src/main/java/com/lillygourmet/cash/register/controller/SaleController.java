@@ -13,17 +13,26 @@ package com.lillygourmet.cash.register.controller;
  */
 
 import com.lillygourmet.cash.register.model.Sale;
+import com.lillygourmet.cash.register.model.SaleLine;
+import com.lillygourmet.cash.register.service.CaissierService;
+import com.lillygourmet.cash.register.service.CustomerService;
+import com.lillygourmet.cash.register.service.ProductService;
 import com.lillygourmet.cash.register.service.SaleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -33,6 +42,12 @@ public class SaleController {
 
 	@Autowired
 	private SaleService SaleService;
+	@Autowired
+	private CustomerService customerService;
+	@Autowired
+	private CaissierService caissierService;
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("api/Sales")
 	public ResponseEntity<List<Sale>> retrieveAllSales() {
@@ -51,8 +66,14 @@ public class SaleController {
 
 	@PostMapping("api/Sales")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Sale> createSale(@RequestBody Sale Sale) {
+	public ResponseEntity<Sale> createSale(@RequestBody String Sales) {
+		JsonParser parser = new BasicJsonParser();
+		Map<String, Object> saleJson = parser.parseMap(Sales);
+		// get sale lines object and add it to a list
+		ArrayList salelines=new ArrayList();
+		SaleLine sl=new SaleLine();
 
+		Sale Sale = new Sale(customerService.getCustomer(Long.parseLong(saleJson.get("customer_id").toString())), caissierService.getCaissier( Long.parseLong(saleJson.get("caissier_id").toString())), null, Float.parseFloat(saleJson.get("total").toString()), Boolean.parseBoolean(saleJson.get("finished").toString()));
 		_log.info("create Sale controller...!");
 		Sale savedSale = SaleService.createSale(Sale);
 		return new ResponseEntity<Sale>(savedSale, new HttpHeaders(), HttpStatus.CREATED);
