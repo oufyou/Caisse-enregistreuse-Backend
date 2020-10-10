@@ -48,6 +48,11 @@ public class SaleLine {
         this.quantity = quantity;
     }
 
+    public SaleLine(Product product, @NotBlank @Size(max = 255) Float quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     public Long getId() {
         return id;
     }

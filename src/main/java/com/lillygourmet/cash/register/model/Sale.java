@@ -44,7 +44,7 @@ public class Sale {
     private Date dateheures;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private List<SaleLine> saleLines;
 
     @NotBlank
@@ -54,11 +54,14 @@ public class Sale {
     @NotBlank
     private Boolean finished;
 
+    @NotBlank
+    @Column(nullable = true)
+    private String comment;
 
     public Sale() {
     }
 
-    public Sale(Long id, Customer customer, Caissier caissier, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished) {
+    public Sale(Long id, Customer customer, Caissier caissier, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
         this.id = id;
         this.customer = customer;
         this.caissier = caissier;
@@ -66,16 +69,17 @@ public class Sale {
         this.saleLines = saleLines;
         this.total = total;
         this.finished = finished;
+        this.comment = comment;
     }
 
-    public Sale(Customer customer, Caissier caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished) {
+    public Sale(Customer customer, Caissier caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
         this.customer = customer;
         this.caissier = caissier;
         this.saleLines = saleLines;
         this.total = total;
         this.finished = finished;
+        this.comment = comment;
     }
-
 
     public Long getId() {
         return id;
@@ -133,6 +137,14 @@ public class Sale {
         this.finished = finished;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Sale{" +
@@ -143,6 +155,7 @@ public class Sale {
                 ", saleLines=" + saleLines +
                 ", total=" + total +
                 ", finished=" + finished +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 }
