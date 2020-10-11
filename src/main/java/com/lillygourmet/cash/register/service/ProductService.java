@@ -57,6 +57,7 @@ public class ProductService {
 		editedProduct.setCodebarre(Product.getCodebarre());
 		editedProduct.setCodecolor(Product.getCodecolor());
 		editedProduct.setEtatexiste(Product.getEtatexiste());
+		editedProduct.setSubCategory(Product.getSubCategory());
 		return ProductRepository.save(editedProduct);
 	}
 }

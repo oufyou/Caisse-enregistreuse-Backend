@@ -43,21 +43,25 @@ public class Category {
 
     @NotBlank
     @Size(max = 255)
+    @Column(nullable = true)
     private String imagelink;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
-    private List<SubCategory> subcategories;
+
 
     public Category() {
     }
 
-    public Category(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, List<SubCategory> subcategories) {
+    public Category(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.imagelink = imagelink;
-        this.subcategories = subcategories;
+    }
+
+    public Category(@NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink) {
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
     }
 
     public Long getId() {
@@ -92,14 +96,6 @@ public class Category {
         this.imagelink = imagelink;
     }
 
-    public List<SubCategory> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(List<SubCategory> subcategories) {
-        this.subcategories = subcategories;
-    }
-
     @Override
     public String toString() {
         return "Category{" +
@@ -107,7 +103,6 @@ public class Category {
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 ", imagelink='" + imagelink + '\'' +
-                ", subcategories=" + subcategories +
                 '}';
     }
 }

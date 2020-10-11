@@ -40,21 +40,37 @@ public class SubCategory {
 
     @NotBlank
     @Size(max = 255)
+    @Column(nullable = true)
     private String imagelink;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(cascade = {CascadeType.REMOVE},fetch = FetchType.EAGER)
-    private List<Product> products;
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    private Category category;
 
     public SubCategory() {
     }
 
-    public SubCategory(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, List<Product> products) {
+    public SubCategory(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, Category category) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.imagelink = imagelink;
-        this.products = products;
+        this.category = category;
+    }
+
+    public SubCategory(@NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, Category category) {
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
@@ -89,14 +105,6 @@ public class SubCategory {
         this.imagelink = imagelink;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     @Override
     public String toString() {
         return "SubCategory{" +
@@ -104,7 +112,7 @@ public class SubCategory {
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
                 ", imagelink='" + imagelink + '\'' +
-                ", products=" + products +
+                ", category=" + category +
                 '}';
     }
 }

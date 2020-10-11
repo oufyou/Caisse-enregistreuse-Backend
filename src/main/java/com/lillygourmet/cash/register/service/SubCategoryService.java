@@ -54,7 +54,7 @@ public class SubCategoryService {
 		editedSubCategory.setNom(SubCategory.getNom());
 		editedSubCategory.setDescription(SubCategory.getDescription());
 		editedSubCategory.setImagelink(SubCategory.getImagelink());
-		editedSubCategory.setProducts(SubCategory.getProducts());
+		editedSubCategory.setCategory(SubCategory.getCategory());
 		return SubCategoryRepository.save(editedSubCategory);
 	}
 }

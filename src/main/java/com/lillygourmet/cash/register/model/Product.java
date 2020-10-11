@@ -7,11 +7,13 @@
 
 package com.lillygourmet.cash.register.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * The type User.
@@ -52,10 +54,14 @@ public class Product {
     @Size(max = 155)
     private String codecolor;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    private SubCategory subCategory;
+
     public Product() {
     }
 
-    public Product(Long id, @NotBlank @Size(max = 255) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 155) String codebarre, @NotBlank @Size(max = 155) float pu, @NotBlank @Size(max = 155) String etatexiste, @NotBlank @Size(max = 155) String codecolor) {
+    public Product(Long id, @NotBlank @Size(max = 255) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 155) String codebarre, @NotBlank @Size(max = 155) float pu, @NotBlank @Size(max = 155) String etatexiste, @NotBlank @Size(max = 155) String codecolor, SubCategory subCategory) {
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -63,6 +69,25 @@ public class Product {
         this.pu = pu;
         this.etatexiste = etatexiste;
         this.codecolor = codecolor;
+        this.subCategory = subCategory;
+    }
+
+    public Product(@NotBlank @Size(max = 255) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 155) String codebarre, @NotBlank @Size(max = 155) float pu, @NotBlank @Size(max = 155) String etatexiste, @NotBlank @Size(max = 155) String codecolor, SubCategory subCategory) {
+        this.nom = nom;
+        this.description = description;
+        this.codebarre = codebarre;
+        this.pu = pu;
+        this.etatexiste = etatexiste;
+        this.codecolor = codecolor;
+        this.subCategory = subCategory;
+    }
+
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
     }
 
     public Long getId() {
@@ -131,6 +156,7 @@ public class Product {
                 ", pu=" + pu +
                 ", etatexiste='" + etatexiste + '\'' +
                 ", codecolor='" + codecolor + '\'' +
+                ", subCategory=" + subCategory +
                 '}';
     }
 }
