@@ -25,6 +25,9 @@ public class SubCategoryService {
 	@Autowired
 	private SubCategoryRepository SubCategoryRepository;
 
+	public List<SubCategory> retrieveAllSubCategoriesByCategory(long id) {
+		return SubCategoryRepository.findAllByCategory_Id(id);
+	}
 
 	public List<SubCategory> retrieveAllSubCategories() {
 		return SubCategoryRepository.findAll();

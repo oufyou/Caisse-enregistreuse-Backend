@@ -52,6 +52,15 @@ public class SubCategoryController {
 		return new ResponseEntity<List<SubCategory>>(SubCategories, new HttpHeaders(), HttpStatus.OK);
 	}
 
+
+	@GetMapping("api/SubCategories/category={id}")
+	public ResponseEntity<List<SubCategory>> retrieveSubCategoriesByCategory(@PathVariable Long id) {
+
+		_log.info("retrieve SubCategory by category controller...!");
+		List<SubCategory> SubCategories = SubCategoryService.retrieveAllSubCategoriesByCategory(id);
+		return new ResponseEntity<List<SubCategory>>(SubCategories, new HttpHeaders(), HttpStatus.OK);
+	}
+
 	@GetMapping("api/SubCategories/{id}")
 	public ResponseEntity<SubCategory> retrieveSubCategoryById(@PathVariable Long id) {
 

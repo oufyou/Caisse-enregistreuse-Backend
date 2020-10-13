@@ -25,6 +25,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository ProductRepository;
 
+	public List<Product> retrieveAllBySubCategory(long id){
+		return ProductRepository.findAllBySubCategory_Id(id);
+	}
 
 	public List<Product> retrieveAllProducts() {
 		return ProductRepository.findAll();

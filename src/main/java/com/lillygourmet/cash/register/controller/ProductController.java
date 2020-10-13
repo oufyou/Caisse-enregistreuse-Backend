@@ -48,6 +48,15 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(Products, new HttpHeaders(), HttpStatus.OK);
 	}
 
+
+	@GetMapping("api/Products/subCategory={id}")
+	public ResponseEntity<List<Product>> retrieveProductsBySubCategory(@PathVariable Long id) {
+
+		_log.info("retrieve SubCategory by category controller...!");
+		List<Product> Products = ProductService.retrieveAllBySubCategory(id);
+		return new ResponseEntity<List<Product>>(Products, new HttpHeaders(), HttpStatus.OK);
+	}
+
 	@GetMapping("api/Products/{id}")
 	public ResponseEntity<Product> retrieveProductById(@PathVariable Long id) {
 		_log.info("retrieve Product controller...!");
