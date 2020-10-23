@@ -12,7 +12,9 @@ package com.lillygourmet.cash.register.controller;
  * @author Alias King - Younes OUFRID
  */
 
+import com.lillygourmet.cash.register.model.User;
 import com.lillygourmet.cash.register.model.Waiter;
+import com.lillygourmet.cash.register.repository.WaiterRepository;
 import com.lillygourmet.cash.register.service.WaiterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +35,21 @@ public class WaiterController {
 
 	@Autowired
 	private WaiterService WaiterService;
-
+	@Autowired
+	private WaiterRepository waiterRepository;
 	@GetMapping("api/Waiters")
 	public ResponseEntity<List<Waiter>> retrieveAllWaiters() {
 		_log.info("retrieve all Waiters controller...!");
 		List<Waiter> Waiters = WaiterService.retrieveAllWaiters();
 		return new ResponseEntity<List<Waiter>>(Waiters, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	// get users with role waiter using JPA Query Jointure
+	@GetMapping("api/Caissiers/{role}")
+	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+		_log.info("retrieve Users with role cashier controller...!");
+		List<User> users = waiterRepository.findUsersbyRole(role);
+		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@GetMapping("api/Waiters/{id}")

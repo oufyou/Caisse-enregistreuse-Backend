@@ -13,6 +13,8 @@ package com.lillygourmet.cash.register.controller;
  */
 
 import com.lillygourmet.cash.register.model.Customer;
+import com.lillygourmet.cash.register.model.User;
+import com.lillygourmet.cash.register.repository.CustomerRepository;
 import com.lillygourmet.cash.register.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,17 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService CustomerService;
+
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	// get users with role cutomers using JPA Query Jointure
+	@GetMapping("api/Caissiers/{role}")
+	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+		_log.info("retrieve Users with role cashier controller...!");
+		List<User> users = customerRepository.findUsersbyRole(role);
+		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
+	}
 
 	@GetMapping("api/Customers")
 	public ResponseEntity<List<Customer>> retrieveAllCustomers() {

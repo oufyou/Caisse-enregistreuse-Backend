@@ -13,6 +13,8 @@ package com.lillygourmet.cash.register.controller;
  */
 
 import com.lillygourmet.cash.register.model.Caissier;
+import com.lillygourmet.cash.register.model.User;
+import com.lillygourmet.cash.register.repository.CaissierRepository;
 import com.lillygourmet.cash.register.service.CaissierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -33,6 +36,17 @@ public class CaissierController {
 
 	@Autowired
 	private CaissierService CaissierService;
+
+	@Autowired
+	private CaissierRepository caissierRepository;
+
+	// get users with role cashier using JPA Query Jointure
+	@GetMapping("api/Caissiers/{role}")
+	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+		_log.info("retrieve Users with role cashier controller...!");
+		List<User> users = caissierRepository.findUsersbyRole(role);
+		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
+	}
 
 	@GetMapping("api/Caissiers")
 	public ResponseEntity<List<Caissier>> retrieveAllCaissiers() {

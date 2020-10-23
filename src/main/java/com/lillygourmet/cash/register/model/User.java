@@ -138,6 +138,20 @@ public class User {
         this.updatedBy = updatedBy;
     }
 
+    public User(@NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String sexe, @NotBlank @Size(max = 20) Date bdate, @NotBlank @Size(max = 155) String adress, @NotBlank @Size(max = 20) String phone, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, String createdBy, String updatedBy) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sexe = sexe;
+        this.bdate = bdate;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+    }
+
     public User(@NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 120) String password, String createdBy, String updatedBy) {
         this.firstName = firstName;
         this.lastName = lastName;

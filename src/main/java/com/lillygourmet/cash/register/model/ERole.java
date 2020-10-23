@@ -10,5 +10,8 @@ package com.lillygourmet.cash.register.model;
 public enum ERole {
 	ROLE_USER,
     ROLE_MODERATOR,
-    ROLE_ADMIN
+    ROLE_ADMIN,
+    ROLE_CASHIER,
+    ROLE_WAITER,
+    ROLE_CUSTOMER
 }

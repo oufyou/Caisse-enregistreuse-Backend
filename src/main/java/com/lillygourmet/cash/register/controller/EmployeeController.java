@@ -13,6 +13,7 @@ package com.lillygourmet.cash.register.controller;
  */
 
 import com.lillygourmet.cash.register.model.Employee;
+import com.lillygourmet.cash.register.model.User;
 import com.lillygourmet.cash.register.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,12 +35,14 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService EmployeeService;
 
+
 	@GetMapping("api/Employees")
 	public ResponseEntity<List<Employee>> retrieveAllEmployees() {
 		_log.info("retrieve all Employees controller...!");
 		List<Employee> Employees = EmployeeService.retrieveAllEmployees();
 		return new ResponseEntity<List<Employee>>(Employees, new HttpHeaders(), HttpStatus.OK);
 	}
+
 
 	@GetMapping("api/Employees/{id}")
 	public ResponseEntity<Employee> retrieveEmployeeById(@PathVariable Long id) {
