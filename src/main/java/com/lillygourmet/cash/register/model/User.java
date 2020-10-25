@@ -7,6 +7,7 @@
 
 package com.lillygourmet.cash.register.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
@@ -194,6 +195,7 @@ public class User {
         this.sexe = sexe;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     public Date getBdate() {
         return bdate;
     }
