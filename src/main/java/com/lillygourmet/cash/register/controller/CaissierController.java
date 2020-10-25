@@ -41,14 +41,14 @@ public class CaissierController {
 	private CaissierRepository caissierRepository;
 
 	// get users with role cashier using JPA Query Jointure
-	@GetMapping("api/Caissiers/{role}")
-	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+	@GetMapping("api/Caissiers")
+	public ResponseEntity<List<User>> retrieveCaissierByRole() {
 		_log.info("retrieve Users with role cashier controller...!");
-		List<User> users = caissierRepository.findUsersbyRole(role);
+		List<User> users = caissierRepository.findUsersbyRole("ROLE_CASHIER");
 		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@GetMapping("api/Caissiers")
+	@GetMapping("api/Caissierss")
 	public ResponseEntity<List<Caissier>> retrieveAllCaissiers() {
 		_log.info("retrieve all Caissiers controller...!");
 		List<Caissier> Caissiers = CaissierService.retrieveAllCaissiers();

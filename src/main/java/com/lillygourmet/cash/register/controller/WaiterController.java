@@ -37,7 +37,7 @@ public class WaiterController {
 	private WaiterService WaiterService;
 	@Autowired
 	private WaiterRepository waiterRepository;
-	@GetMapping("api/Waiters")
+	@GetMapping("api/Waiterss")
 	public ResponseEntity<List<Waiter>> retrieveAllWaiters() {
 		_log.info("retrieve all Waiters controller...!");
 		List<Waiter> Waiters = WaiterService.retrieveAllWaiters();
@@ -45,10 +45,10 @@ public class WaiterController {
 	}
 
 	// get users with role waiter using JPA Query Jointure
-	@GetMapping("api/Caissiers/{role}")
-	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+	@GetMapping("api/Waiters")
+	public ResponseEntity<List<User>> retrieveCaissierByRole() {
 		_log.info("retrieve Users with role cashier controller...!");
-		List<User> users = waiterRepository.findUsersbyRole(role);
+		List<User> users = waiterRepository.findUsersbyRole("ROLE_WAITER");
 		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
 	}
 

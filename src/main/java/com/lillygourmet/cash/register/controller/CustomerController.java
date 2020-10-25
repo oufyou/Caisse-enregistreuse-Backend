@@ -40,14 +40,14 @@ public class CustomerController {
 	private CustomerRepository customerRepository;
 
 	// get users with role cutomers using JPA Query Jointure
-	@GetMapping("api/Caissiers/{role}")
-	public ResponseEntity<List<User>> retrieveCaissierByRole(@PathVariable String role) {
+	@GetMapping("api/Customers")
+	public ResponseEntity<List<User>> retrieveCaissierByRole() {
 		_log.info("retrieve Users with role cashier controller...!");
-		List<User> users = customerRepository.findUsersbyRole(role);
+		List<User> users = customerRepository.findUsersbyRole("ROLE_CUSTOMER");
 		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@GetMapping("api/Customers")
+	@GetMapping("api/Customerss")
 	public ResponseEntity<List<Customer>> retrieveAllCustomers() {
 		_log.info("retrieve all Customers controller...!");
 		List<Customer> Customers = CustomerService.retrieveAllCustomers();
