@@ -56,13 +56,13 @@ public class WaiterController {
 		for(int i=0;i<entityList.size();i++){
 			JSONObject entity = new JSONObject();
 			entity.put("id", entityList.get(i)[0]);
-			entity.put("address",entityList.get(i)[1]);
+			entity.put("adress",entityList.get(i)[1]);
 			entity.put("bdate",entityList.get(i)[2]);
 			entity.put("createdAt",entityList.get(i)[3]);
 			entity.put("createdBy",entityList.get(i)[4]);
 			entity.put("email",entityList.get(i)[5]);
-			entity.put("firstname",entityList.get(i)[6]);
-			entity.put("lastname",entityList.get(i)[7]);
+			entity.put("firstName",entityList.get(i)[6]);
+			entity.put("lastName",entityList.get(i)[7]);
 			entity.put("password",entityList.get(i)[8]);
 			entity.put("phone",entityList.get(i)[9]);
 			entity.put("sexe",entityList.get(i)[10]);
