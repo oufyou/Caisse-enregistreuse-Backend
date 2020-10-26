@@ -14,10 +14,8 @@ package com.lillygourmet.cash.register.controller;
 
 import com.lillygourmet.cash.register.model.Sale;
 import com.lillygourmet.cash.register.model.SaleLine;
-import com.lillygourmet.cash.register.service.CaissierService;
-import com.lillygourmet.cash.register.service.CustomerService;
-import com.lillygourmet.cash.register.service.ProductService;
-import com.lillygourmet.cash.register.service.SaleService;
+import com.lillygourmet.cash.register.repository.SaleRepository;
+import com.lillygourmet.cash.register.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +48,20 @@ public class SaleController {
     private CaissierService caissierService;
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    SaleRepository saleRepository;
+
+    @Autowired
+    private UserService userService;
+
+    // method added
+    @GetMapping("api/Sales/state={b}")
+    public ResponseEntity<List<Sale>> retrieveAllSalesByState(@PathVariable boolean b) {
+        _log.info("retrieve All sales by state controller...!");
+        List<Sale> Sales = saleRepository.findAllByFinished(b);
+        return new ResponseEntity<List<Sale>>(Sales, new HttpHeaders(), HttpStatus.OK);
+    }
 
     @GetMapping("api/Sales")
     public ResponseEntity<List<Sale>> retrieveAllSales() {
@@ -91,7 +103,7 @@ public class SaleController {
 
  */
 
-        Sale Sale = new Sale(customerService.getCustomer(Long.parseLong(saleJson.get("customer_id").toString())), caissierService.getCaissier(Long.parseLong(saleJson.get("caissier_id").toString())), saleLineList, Float.parseFloat(saleJson.get("total").toString()), Boolean.parseBoolean(saleJson.get("finished").toString()),saleJson.get("comment").toString());
+        Sale Sale = new Sale(userService.getUser(Long.parseLong(saleJson.get("customer_id").toString())), userService.getUser(Long.parseLong(saleJson.get("caissier_id").toString())), saleLineList, Float.parseFloat(saleJson.get("total").toString()), Boolean.parseBoolean(saleJson.get("finished").toString()),saleJson.get("comment").toString());
 
         _log.info("create Sale controller...!");
         Sale savedSale = SaleService.createSale(Sale);

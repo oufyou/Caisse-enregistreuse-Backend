@@ -33,10 +33,10 @@ public class Sale {
     private Long id;
 
     @OneToOne(cascade = {CascadeType.REMOVE})
-    private Customer customer;
+    private User user;
 
     @OneToOne(cascade = {CascadeType.REMOVE})
-    private Caissier caissier;
+    private User user1;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,10 +61,10 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Long id, Customer customer, Caissier caissier, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
+    public Sale(Long id, User user, User user1, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
         this.id = id;
-        this.customer = customer;
-        this.caissier = caissier;
+        this.user = user;
+        this.user1 = user1;
         this.dateheures = dateheures;
         this.saleLines = saleLines;
         this.total = total;
@@ -72,9 +72,9 @@ public class Sale {
         this.comment = comment;
     }
 
-    public Sale(Customer customer, Caissier caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
-        this.customer = customer;
-        this.caissier = caissier;
+    public Sale(User user, User user1, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
+        this.user = user;
+        this.user1 = user1;
         this.saleLines = saleLines;
         this.total = total;
         this.finished = finished;
@@ -87,22 +87,6 @@ public class Sale {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Caissier getCaissier() {
-        return caissier;
-    }
-
-    public void setCaissier(Caissier caissier) {
-        this.caissier = caissier;
     }
 
     public Date getDateheures() {
@@ -145,12 +129,28 @@ public class Sale {
         this.comment = comment;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser1() {
+        return user1;
+    }
+
+    public void setUser1(User user1) {
+        this.user1 = user1;
+    }
+
     @Override
     public String toString() {
         return "Sale{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", caissier=" + caissier +
+                ", user=" + user +
+                ", user1=" + user1 +
                 ", dateheures=" + dateheures +
                 ", saleLines=" + saleLines +
                 ", total=" + total +
