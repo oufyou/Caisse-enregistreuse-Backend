@@ -9,7 +9,7 @@ package com.lillygourmet.cash.register.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="roles")
 @Table(name = "roles")
 public class Role {
 	@Id

@@ -16,15 +16,18 @@ import com.lillygourmet.cash.register.model.User;
 import com.lillygourmet.cash.register.model.Waiter;
 import com.lillygourmet.cash.register.repository.WaiterRepository;
 import com.lillygourmet.cash.register.service.WaiterService;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -44,12 +47,31 @@ public class WaiterController {
 		return new ResponseEntity<List<Waiter>>(Waiters, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	// get users with role waiter using JPA Query Jointure
-	@GetMapping("api/Waiters")
-	public ResponseEntity<List<User>> retrieveCaissierByRole() {
-		_log.info("retrieve Users with role cashier controller...!");
-		List<User> users = waiterRepository.findUsersbyRole("ROLE_WAITER");
-		return new ResponseEntity<List<User>>(users, new HttpHeaders(), HttpStatus.OK);
+	// get users with role Waiter using JPA Query Jointure
+	@RequestMapping(value="api/Waiters", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	String getAll() {
+		List<Object[]> entityList = waiterRepository.findUsersbyRole("ROLE_WAITER");
+		List<JSONObject> entities = new ArrayList<JSONObject>();
+		for(int i=0;i<entityList.size();i++){
+			JSONObject entity = new JSONObject();
+			entity.put("id", entityList.get(i)[0]);
+			entity.put("address",entityList.get(i)[1]);
+			entity.put("bdate",entityList.get(i)[2]);
+			entity.put("createdAt",entityList.get(i)[3]);
+			entity.put("createdBy",entityList.get(i)[4]);
+			entity.put("email",entityList.get(i)[5]);
+			entity.put("firstname",entityList.get(i)[6]);
+			entity.put("lastname",entityList.get(i)[7]);
+			entity.put("password",entityList.get(i)[8]);
+			entity.put("phone",entityList.get(i)[9]);
+			entity.put("sexe",entityList.get(i)[10]);
+			entity.put("updatedAt",entityList.get(i)[11]);
+			entity.put("updatedBy",entityList.get(i)[12]);
+			entity.put("username",entityList.get(i)[13]);
+			entities.add(entity);
+		}
+		return  entities.toString();
 	}
 
 	@GetMapping("api/Waiters/{id}")

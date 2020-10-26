@@ -27,7 +27,7 @@ import java.util.Date;
  * @author King
  */
 
-@Entity
+@Entity(name="users")
 @Table(	name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
@@ -39,44 +39,54 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="first_name")
     private String firstName;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="last_name")
     private String lastName;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="sexe")
     private String sexe;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="bdate")
     private Date bdate;
 
     @NotBlank
     @Size(max = 155)
+    @Column(name="adress")
     private String adress;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="phone")
     private String phone;
 
 
     @NotBlank
     @Size(max = 50)
     @Email
+    @Column(name="email")
     private String email;
 
     @NotBlank
     @Size(max = 20)
+    @Column(name="username")
     private String username;
 
     @NotBlank
     @Size(max = 120)
+    @Column(name="password")
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -87,16 +97,20 @@ public class User {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="created_at")
     private Date createdAt;
 
     @CreatedBy
+    @Column(name="created_by")
     private String createdBy;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="updated_at")
     private Date updatedAt;
 
     @LastModifiedBy
+    @Column(name="updated_by")
     private String updatedBy;
 
     public User() {
@@ -118,6 +132,23 @@ public class User {
         this.password = password;
         this.roles = roles;
         this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+    }
+
+    public User(Long id, @NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String sexe, @NotBlank @Size(max = 20) Date bdate, @NotBlank @Size(max = 155) String adress, @NotBlank @Size(max = 20) String phone, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, Date createdAt, String createdBy, Date updatedAt, String updatedBy) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sexe = sexe;
+        this.bdate = bdate;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.updatedAt = updatedAt;
         this.updatedBy = updatedBy;
     }
 
