@@ -54,6 +54,13 @@ public class UserService {
 		editedUser.setEmail(user.getEmail());
 		editedUser.setFirstName(user.getFirstName());
 		editedUser.setLastName(user.getLastName());
+		editedUser.setAdress(user.getAdress());
+		editedUser.setBdate(user.getBdate());
+		editedUser.setPassword(user.getPassword());
+		editedUser.setPhone(user.getPhone());
+		editedUser.setUsername(user.getUsername());
+		editedUser.setSexe(user.getSexe());
+		editedUser.setRoles(user.getRoles());
 		return userRepository.save(editedUser);
 	}
 }
