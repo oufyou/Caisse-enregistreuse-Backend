@@ -33,10 +33,10 @@ public class Sale {
     private Long id;
 
     @OneToOne(cascade = {CascadeType.REMOVE})
-    private User user;
+    private User customer;
 
     @OneToOne(cascade = {CascadeType.REMOVE})
-    private User user1;
+    private User caissier;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,10 +61,10 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Long id, User user, User user1, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
+    public Sale(Long id, User customer, User caissier, Date dateheures, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
         this.id = id;
-        this.user = user;
-        this.user1 = user1;
+        this.customer = customer;
+        this.caissier = caissier;
         this.dateheures = dateheures;
         this.saleLines = saleLines;
         this.total = total;
@@ -72,9 +72,9 @@ public class Sale {
         this.comment = comment;
     }
 
-    public Sale(User user, User user1, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
-        this.user = user;
-        this.user1 = user1;
+    public Sale(User customer, User caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment) {
+        this.customer = customer;
+        this.caissier = caissier;
         this.saleLines = saleLines;
         this.total = total;
         this.finished = finished;
@@ -129,28 +129,28 @@ public class Sale {
         this.comment = comment;
     }
 
-    public User getUser() {
-        return user;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
-    public User getUser1() {
-        return user1;
+    public User getCaissier() {
+        return caissier;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setCaissier(User caissier) {
+        this.caissier = caissier;
     }
 
     @Override
     public String toString() {
         return "Sale{" +
                 "id=" + id +
-                ", user=" + user +
-                ", user1=" + user1 +
+                ", customer=" + customer +
+                ", caissier=" + caissier +
                 ", dateheures=" + dateheures +
                 ", saleLines=" + saleLines +
                 ", total=" + total +
