@@ -8,6 +8,8 @@
 package com.lillygourmet.cash.register.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -55,7 +57,8 @@ public class Product {
     private String codecolor;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private SubCategory subCategory;
 
     public Product() {
