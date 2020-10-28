@@ -79,7 +79,7 @@ public class SaleController {
     }
 
     @PostMapping("api/Sales")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CASHIER')")
     public ResponseEntity<Sale> createSale(@RequestBody String Sales) {
         JsonParser parser = new BasicJsonParser();
         Map<String, Object> saleJson = parser.parseMap(Sales);

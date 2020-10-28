@@ -62,7 +62,7 @@ public class PaymentController {
     }
 
     @PostMapping("api/Payments")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CASHIER')")
     public ResponseEntity<Payment> createPayment(@RequestBody String Payment) {
         JsonParser parser = new BasicJsonParser();
         Map<String, Object> PaymentJson = parser.parseMap(Payment);
