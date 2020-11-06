@@ -27,6 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class CaissierController {
 	public @ResponseBody
 	String getAll() {
 		List<Object[]> entityList = caissierRepository.findUsersbyRole("ROLE_CASHIER");
+
 		List<JSONObject> entities = new ArrayList<JSONObject>();
 		for(int i=0;i<entityList.size();i++){
 			JSONObject entity = new JSONObject();
