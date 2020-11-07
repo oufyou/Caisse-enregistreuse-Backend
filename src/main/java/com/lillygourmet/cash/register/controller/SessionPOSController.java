@@ -64,6 +64,7 @@ private SessionPOSRepository sessionPOSRepository;
         return new ResponseEntity<SessionPOS>(SessionPOS, new HttpHeaders(), HttpStatus.OK);
     }
 
+    // ouverture de caisse
     @PostMapping("api/SessionPOSs")
     @PreAuthorize("hasAnyRole('ADMIN','CASHIER')")
     public ResponseEntity<SessionPOS> createSessionPOS(@RequestBody String SessionPOS) {
@@ -84,6 +85,7 @@ private SessionPOSRepository sessionPOSRepository;
         return HttpStatus.ACCEPTED;
     }
 
+    // Fermture de caisse
     @PutMapping("api/SessionPOSs/{id}")
     public ResponseEntity<SessionPOS> updateSessionPOS(@PathVariable Long id,@RequestBody String SessionPOS)throws ResourceNotFoundException {
         SessionPOS spos = sessionPOSRepository.findById(id)
@@ -91,12 +93,12 @@ private SessionPOSRepository sessionPOSRepository;
         JsonParser parser = new BasicJsonParser();
         Map<String, Object> SessionPOSJson = parser.parseMap(SessionPOS);
         // Mapping SessionPOS object by JSON strategy
-        SessionPOS sp = new SessionPOS(userService.getUser(Long.parseLong(SessionPOSJson.get("caissier_id").toString())),Float.parseFloat(SessionPOSJson.get("OpenMontant").toString()),Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()),Boolean.parseBoolean(SessionPOSJson.get("State").toString()),SessionPOSJson.get("Comment").toString());
-           spos.setUserCaissier(sp.getUserCaissier());
-           spos.setOpenMontant(sp.getOpenMontant());
-           spos.setCloseMontant(sp.getCloseMontant());
-           spos.setState(sp.getState());
-           spos.setComment(sp.getComment());
+        // SessionPOS sp = new SessionPOS(userService.getUser(Long.parseLong(SessionPOSJson.get("caissier_id").toString())),Float.parseFloat(SessionPOSJson.get("OpenMontant").toString()),Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()),Boolean.parseBoolean(SessionPOSJson.get("State").toString()),SessionPOSJson.get("Comment").toString());
+           spos.setUserCaissier(spos.getUserCaissier());
+           spos.setOpenMontant(spos.getOpenMontant());
+           spos.setCloseMontant(Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()));
+           spos.setState(true);
+           spos.setComment(SessionPOSJson.get("Comment").toString());
         SessionPOS updatedSessionPOS = SessionPOSService.updateSessionPOS(spos);
         _log.info("update SessionPOS controller...!");
         return new ResponseEntity<SessionPOS>(updatedSessionPOS, new HttpHeaders(), HttpStatus.ACCEPTED);

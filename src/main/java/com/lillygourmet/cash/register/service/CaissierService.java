@@ -25,7 +25,6 @@ public class CaissierService {
 	@Autowired
 	private CaissierRepository CaissierRepository;
 
-
 	public List<Caissier> retrieveAllCaissiers() {
 		return CaissierRepository.findAll();
 	}
