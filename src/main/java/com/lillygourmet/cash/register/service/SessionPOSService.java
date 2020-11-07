@@ -50,12 +50,6 @@ public class SessionPOSService {
 	}
 
 	public SessionPOS updateSessionPOS(SessionPOS SessionPOS) {
-		SessionPOS editedSessionPOS = SessionPOSRepository.getOne(SessionPOS.getId());
-		editedSessionPOS.setOpenMontant(SessionPOS.getOpenMontant());
-		editedSessionPOS.setCloseMontant(SessionPOS.getCloseMontant());
-		editedSessionPOS.setState(SessionPOS.getState());
-		editedSessionPOS.setUserCaissier(SessionPOS.getUserCaissier());
-		editedSessionPOS.setComment(SessionPOS.getComment());
-		return SessionPOSRepository.save(editedSessionPOS);
+		return SessionPOSRepository.save(SessionPOS);
 	}
 }

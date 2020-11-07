@@ -12,7 +12,9 @@ package com.lillygourmet.cash.register.controller;
  * @author Alias King - Younes OUFRID
  */
 
+import com.lillygourmet.cash.register.Exception.ResourceNotFoundException;
 import com.lillygourmet.cash.register.model.SessionPOS;
+import com.lillygourmet.cash.register.repository.SessionPOSRepository;
 import com.lillygourmet.cash.register.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +46,10 @@ public class SessionPOSController {
     private ProductService productService;
     @Autowired
     private SaleService saleService;
-
+    @Autowired
+    private  UserService userService;
+@Autowired
+private SessionPOSRepository sessionPOSRepository;
     @GetMapping("api/SessionPOSs")
     public ResponseEntity<List<SessionPOS>> retrieveAllSessionPOSs() {
         _log.info("retrieve all SessionPOSs controller...!");
@@ -65,7 +70,7 @@ public class SessionPOSController {
         JsonParser parser = new BasicJsonParser();
         Map<String, Object> SessionPOSJson = parser.parseMap(SessionPOS);
         // Mapping SessionPOS object by JSON strategy
-        SessionPOS sp = new SessionPOS(caissierService.getCaissier(Long.parseLong(SessionPOSJson.get("caissier_id").toString())),Float.parseFloat(SessionPOSJson.get("OpenMontant").toString()),Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()),Boolean.parseBoolean(SessionPOSJson.get("State").toString()),SessionPOSJson.get("Comment").toString());
+        SessionPOS sp = new SessionPOS(userService.getUser(Long.parseLong(SessionPOSJson.get("caissier_id").toString())),Float.parseFloat(SessionPOSJson.get("OpenMontant").toString()),Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()),Boolean.parseBoolean(SessionPOSJson.get("State").toString()),SessionPOSJson.get("Comment").toString());
         _log.info("create SessionPOS controller...!");
         SessionPOS savedSessionPOS = SessionPOSService.createSessionPOS(sp);
         return new ResponseEntity<SessionPOS>(savedSessionPOS, new HttpHeaders(), HttpStatus.CREATED);
@@ -79,10 +84,21 @@ public class SessionPOSController {
         return HttpStatus.ACCEPTED;
     }
 
-    @PutMapping("api/SessionPOSs")
-    public ResponseEntity<SessionPOS> updateSessionPOS(@RequestBody SessionPOS SessionPOS) {
+    @PutMapping("api/SessionPOSs/{id}")
+    public ResponseEntity<SessionPOS> updateSessionPOS(@PathVariable Long id,@RequestBody String SessionPOS)throws ResourceNotFoundException {
+        SessionPOS spos = sessionPOSRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("SessionPOS not found for this id :: " + id));
+        JsonParser parser = new BasicJsonParser();
+        Map<String, Object> SessionPOSJson = parser.parseMap(SessionPOS);
+        // Mapping SessionPOS object by JSON strategy
+        SessionPOS sp = new SessionPOS(userService.getUser(Long.parseLong(SessionPOSJson.get("caissier_id").toString())),Float.parseFloat(SessionPOSJson.get("OpenMontant").toString()),Float.parseFloat(SessionPOSJson.get("CloseMontant").toString()),Boolean.parseBoolean(SessionPOSJson.get("State").toString()),SessionPOSJson.get("Comment").toString());
+           spos.setUserCaissier(sp.getUserCaissier());
+           spos.setOpenMontant(sp.getOpenMontant());
+           spos.setCloseMontant(sp.getCloseMontant());
+           spos.setState(sp.getState());
+           spos.setComment(sp.getComment());
+        SessionPOS updatedSessionPOS = SessionPOSService.updateSessionPOS(spos);
         _log.info("update SessionPOS controller...!");
-        SessionPOS updatedSessionPOS = SessionPOSService.updateSessionPOS(SessionPOS);
         return new ResponseEntity<SessionPOS>(updatedSessionPOS, new HttpHeaders(), HttpStatus.ACCEPTED);
     }
 }
