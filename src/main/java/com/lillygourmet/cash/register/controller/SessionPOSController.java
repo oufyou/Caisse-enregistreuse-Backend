@@ -85,7 +85,7 @@ private SessionPOSRepository sessionPOSRepository;
         return HttpStatus.ACCEPTED;
     }
 
-    // Fermture de caisse
+    // Fermeture de caisse
     @PutMapping("api/SessionPOSs/{id}")
     public ResponseEntity<SessionPOS> updateSessionPOS(@PathVariable Long id,@RequestBody String SessionPOS)throws ResourceNotFoundException {
         SessionPOS spos = sessionPOSRepository.findById(id)
