@@ -69,7 +69,9 @@ public class TicketZController {
         for(int i=0;i<TotalTTCparVendeur_Jour.size();i++){
             JSONObject entitys = new JSONObject();
             entitys.put("id_caissier", TotalTTCparVendeur_Jour.get(i)[0]);
-            entitys.put("total",TotalTTCparVendeur_Jour.get(i)[1]);
+            entitys.put("first_name", TotalTTCparVendeur_Jour.get(i)[1]);
+            entitys.put("last_name", TotalTTCparVendeur_Jour.get(i)[2]);
+            entitys.put("total",TotalTTCparVendeur_Jour.get(i)[3]);
             entities.add(entitys);
         }
         entity.put("TotalTTCparVendeur_Jour",entities);
