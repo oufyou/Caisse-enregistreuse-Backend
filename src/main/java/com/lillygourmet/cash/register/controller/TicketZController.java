@@ -59,11 +59,11 @@ public class TicketZController {
         JSONObject entity = new JSONObject();
         entity.put("Ticket Z du Jour", date);
         entity.put("Total_des_tickets_Jour", Totaldestickets_Jour[0]);
-        entity.put("Total_crédits_des_tickets_Jour", Totaldescredits_Jour[0]);
+        entity.put("Total_credits_des_tickets_Jour", Totaldescredits_Jour[0]);
         entity.put("Totalencaissements_Jour", Totalencaissements_Jour[0]);
         entity.put("TotalfactureHT_Jour", TotalfactureHT_Jour[0]);
         entity.put("TotalfactureTTC_Jour", TotalfactureTTC_Jour[0]);
-        entity.put("TotalfactureTVA_Jour", TotalfactureTTC_Jour[0]);
+        entity.put("TotalfactureTVA_Jour", TotalfactureTVA_Jour[0]);
 
         List<JSONObject> entities = new ArrayList<JSONObject>();
         for(int i=0;i<TotalTTCparVendeur_Jour.size();i++){
@@ -79,13 +79,59 @@ public class TicketZController {
         List<JSONObject> entitiess = new ArrayList<JSONObject>();
         for(int i=0;i<TotalEncaissementsParTypePayement_Jour.size();i++){
             JSONObject entitys = new JSONObject();
-            entitys.put("type payement", TotalEncaissementsParTypePayement_Jour.get(i)[0]);
+            entitys.put("type_payement", TotalEncaissementsParTypePayement_Jour.get(i)[0]);
             entitys.put("total",TotalEncaissementsParTypePayement_Jour.get(i)[1]);
             entitiess.add(entitys);
         }
         entity.put("TotalEncaissementsParTypePayement_Jour",entitiess);
 
-        _log.info("Ticket Z du jour selected ...!");
+        _log.info("Ticket_Z_du_jour_selected ...!");
+        return  entity.toString();
+    }
+
+    // get Ticket Z par mois
+    @RequestMapping(value="api/ticketZMois/{date}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    String getticketZMois(@PathVariable String date) {
+
+        Object[] Totaldestickets_Mois = ticketZRepository.Totaldestickets_Mois(date);
+        Object[] Totaldescredits_Mois = ticketZRepository.Totaldescredits_Mois(date);
+        Object[] Totalencaissements_Mois = ticketZRepository.Totalencaissements_Mois(date);
+        Object[] TotalfactureHT_Mois = ticketZRepository.TotalfactureHT_Mois(date);
+        Object[] TotalfactureTTC_Mois = ticketZRepository.TotalfactureTTC_Mois(date);
+        Object[] TotalfactureTVA_Mois = ticketZRepository.TotalfactureTVA_Mois(date);
+        List<Object[]> TotalTTCparVendeur_Mois = ticketZRepository.TotalTTCparVendeur_Mois(date);
+        List<Object[]> TotalEncaissementsParTypePayement_Mois = ticketZRepository.TotalEncaissementsParTypePayement_Mois(date);
+        JSONObject entity = new JSONObject();
+        entity.put("Ticket Z du Mois", date);
+        entity.put("Total_des_tickets_Mois", Totaldestickets_Mois[0]);
+        entity.put("Total_credits_des_tickets_Mois", Totaldescredits_Mois[0]);
+        entity.put("Totalencaissements_Mois", Totalencaissements_Mois[0]);
+        entity.put("TotalfactureHT_Mois", TotalfactureHT_Mois[0]);
+        entity.put("TotalfactureTTC_Mois", TotalfactureTTC_Mois[0]);
+        entity.put("TotalfactureTVA_Mois", TotalfactureTVA_Mois[0]);
+
+        List<JSONObject> entities = new ArrayList<JSONObject>();
+        for(int i=0;i<TotalTTCparVendeur_Mois.size();i++){
+            JSONObject entitys = new JSONObject();
+            entitys.put("id_caissier", TotalTTCparVendeur_Mois.get(i)[0]);
+            entitys.put("first_name", TotalTTCparVendeur_Mois.get(i)[1]);
+            entitys.put("last_name", TotalTTCparVendeur_Mois.get(i)[2]);
+            entitys.put("total",TotalTTCparVendeur_Mois.get(i)[3]);
+            entities.add(entitys);
+        }
+        entity.put("TotalTTCparVendeur_Mois",entities);
+
+        List<JSONObject> entitiess = new ArrayList<JSONObject>();
+        for(int i=0;i<TotalEncaissementsParTypePayement_Mois.size();i++){
+            JSONObject entitys = new JSONObject();
+            entitys.put("type_payement", TotalEncaissementsParTypePayement_Mois.get(i)[0]);
+            entitys.put("total",TotalEncaissementsParTypePayement_Mois.get(i)[1]);
+            entitiess.add(entitys);
+        }
+        entity.put("TotalEncaissementsParTypePayement_Mois",entitiess);
+
+        _log.info("Ticket_Z_du_mois_selected ...!");
         return  entity.toString();
     }
 
