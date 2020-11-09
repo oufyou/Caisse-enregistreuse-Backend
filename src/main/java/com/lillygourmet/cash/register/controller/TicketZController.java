@@ -58,8 +58,8 @@ public class TicketZController {
         List<Object[]> TotalEncaissementsParTypePayement_Jour = ticketZRepository.TotalEncaissementsParTypePayement_Jour(date);
         JSONObject entity = new JSONObject();
         entity.put("Ticket Z du Jour", date);
-        entity.put("Total_des_tickets", Totaldestickets_Jour[0]);
-        entity.put("Total_crédits_des_tickets", Totaldescredits_Jour[0]);
+        entity.put("Total_des_tickets_Jour", Totaldestickets_Jour[0]);
+        entity.put("Total_crédits_des_tickets_Jour", Totaldescredits_Jour[0]);
         entity.put("Totalencaissements_Jour", Totalencaissements_Jour[0]);
         entity.put("TotalfactureHT_Jour", TotalfactureHT_Jour[0]);
         entity.put("TotalfactureTTC_Jour", TotalfactureTTC_Jour[0]);
