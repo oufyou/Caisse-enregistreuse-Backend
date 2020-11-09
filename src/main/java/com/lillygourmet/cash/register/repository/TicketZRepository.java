@@ -41,7 +41,8 @@ public interface TicketZRepository extends JpaRepository<RootEntity, Integer> {
     List<Object[]> TotalTTCparVendeur_Jour(String date);
 
     // Encaissements par type de payement
-    @Query(value="select type,SUM(montant)-SUM(CASE WHEN rendre>=0 THEN rendre ELSE 0 END) from payments where date(dateheures)=?1 group by type",nativeQuery=true)
+    @Query(value="select type,SUM(montant)-SUM(CASE WHEN rendre>=0 THEN rendre ELSE 0 END) " +
+            "from payments where date(dateheures)=?1 group by type",nativeQuery=true)
     List<Object[]> TotalEncaissementsParTypePayement_Jour(String date);
 
     /*// total facturé par catégorie
