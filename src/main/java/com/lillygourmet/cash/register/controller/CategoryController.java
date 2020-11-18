@@ -95,7 +95,7 @@ public class CategoryController {
 		cat.setNom(CategoryPOSJson.get("Nom").toString());
 		cat.setDescription(CategoryPOSJson.get("Description").toString());
 		Category updatedCategory = CategoryService.updateCategory(cat);
-		_log.info("update SessionPOS controller...!");
+		_log.info("update Category controller...!");
 		return new ResponseEntity<Category>(updatedCategory, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 

@@ -114,7 +114,7 @@ public class ProductController {
 		prod.setCodebarre(ProductPOSJson.get("CodeBarre").toString());
 		Product updatedProduct = ProductService.updateProduct(prod);
 
-		_log.info("update SessionPOS controller...!");
+		_log.info("update Product controller...!");
 		return new ResponseEntity<Product>(updatedProduct, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 }

@@ -113,7 +113,7 @@ public class SubCategoryController {
 		subcat.setNom(SubCategoryPOSJson.get("Nom").toString());
 		subcat.setDescription(SubCategoryPOSJson.get("Description").toString());
 		SubCategory updatedSubCategory = SubCategoryService.updateSubCategory(subcat);
-		_log.info("update SessionPOS controller...!");
+		_log.info("update SubCategory controller...!");
 		return new ResponseEntity<SubCategory>(updatedSubCategory, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 }

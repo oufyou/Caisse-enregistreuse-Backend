@@ -88,7 +88,7 @@ public class UserController {
 	}
 
 	// Updating user
-	@PutMapping("api/Categories/{id}")
+	@PutMapping("api/users/{id}")
 	public ResponseEntity<User> updateSessionPOS(@PathVariable Long id, @RequestBody String User) throws ResourceNotFoundException, ParseException {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("user not found for this id :: " + id));
