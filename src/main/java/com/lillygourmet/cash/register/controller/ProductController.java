@@ -12,8 +12,11 @@ package com.lillygourmet.cash.register.controller;
  * @author Alias King - Younes OUFRID
  */
 
+import com.lillygourmet.cash.register.Exception.ResourceNotFoundException;
+import com.lillygourmet.cash.register.model.Category;
 import com.lillygourmet.cash.register.model.Product;
 import com.lillygourmet.cash.register.model.SubCategory;
+import com.lillygourmet.cash.register.repository.ProductRepository;
 import com.lillygourmet.cash.register.service.ProductService;
 import com.lillygourmet.cash.register.service.SubCategoryService;
 import org.slf4j.Logger;
@@ -40,7 +43,8 @@ public class ProductController {
 	private ProductService ProductService;
 	@Autowired
 	private SubCategoryService subCategoryService;
-
+	@Autowired
+	private ProductRepository productRepository;
 	@GetMapping("api/Products")
 	public ResponseEntity<List<Product>> retrieveAllProducts() {
 		_log.info("retrieve all Products controller...!");
@@ -90,6 +94,27 @@ public class ProductController {
 
 		_log.info("update Product controller...!");
 		Product updatedProduct= ProductService.updateProduct(Product);
+		return new ResponseEntity<Product>(updatedProduct, new HttpHeaders(), HttpStatus.ACCEPTED);
+	}
+
+	// Updating Product
+	@PutMapping("api/Products/{id}")
+	public ResponseEntity<Product> updateSessionPOS(@PathVariable Long id, @RequestBody String Product)throws ResourceNotFoundException {
+		Product prod = productRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + id));
+		JsonParser parser = new BasicJsonParser();
+		Map<String, Object> ProductPOSJson = parser.parseMap(Product);
+		// Mapping Product object by JSON strategy
+	//--->  prod.setSubCategory(subCategoryService.getSubCategory(Long.parseLong(ProductPOSJson.get("SubCategory_id").toString())));
+		prod.setNom(ProductPOSJson.get("Nom").toString());
+		prod.setDescription(ProductPOSJson.get("Description").toString());
+		prod.setPu(Float.parseFloat(ProductPOSJson.get("Pu").toString()));
+		prod.setEtatexiste(ProductPOSJson.get("EtatExiste").toString());
+		prod.setCodecolor(ProductPOSJson.get("CodeColor").toString());
+		prod.setCodebarre(ProductPOSJson.get("CodeBarre").toString());
+		Product updatedProduct = ProductService.updateProduct(prod);
+
+		_log.info("update SessionPOS controller...!");
 		return new ResponseEntity<Product>(updatedProduct, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 }

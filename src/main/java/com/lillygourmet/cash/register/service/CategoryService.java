@@ -50,11 +50,6 @@ public class CategoryService {
 	}
 	
 	public Category updateCategory(Category Category) {
-		Category editedCategory = CategoryRepository.getOne(Category.getId());
-		editedCategory.setNom(Category.getNom());
-		editedCategory.setDescription(Category.getDescription());
-		editedCategory.setImagelink(Category.getImagelink());
-
-		return CategoryRepository.save(editedCategory);
+		return CategoryRepository.save(Category);
 	}
 }

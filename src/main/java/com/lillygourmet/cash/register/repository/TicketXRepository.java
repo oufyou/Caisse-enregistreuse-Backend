@@ -17,7 +17,7 @@ public interface TicketXRepository extends JpaRepository<RootEntity, Integer> {
     List<Object[]> Betweendestickets_X(Long id);
 
     // total des tickets
-    @Query(value="select sum(total) from sales ,sessionpos sp where user_caissier_id=?1 and sp.opendateheures BETWEEN (select max(spos.opendateheures) from sessionpos spos) and now()",nativeQuery=true)
+    @Query(value="select sum(s.total) from sales s,sessionpos sp where sp.user_caissier_id=?1 and s.dateheures BETWEEN (select max(spos.opendateheures) from sessionpos spos) and now()",nativeQuery=true)
     Object[] Totaldestickets_X(Long id);
 
     // total des crédits sur tickets

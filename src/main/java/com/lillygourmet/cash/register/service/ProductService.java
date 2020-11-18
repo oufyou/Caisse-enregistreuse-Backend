@@ -53,14 +53,6 @@ public class ProductService {
 	}
 	
 	public Product updateProduct(Product Product) {
-		Product editedProduct = ProductRepository.getOne(Product.getId());
-		editedProduct.setNom(Product.getNom());
-		editedProduct.setDescription(Product.getDescription());
-		editedProduct.setPu(Product.getPu());
-		editedProduct.setCodebarre(Product.getCodebarre());
-		editedProduct.setCodecolor(Product.getCodecolor());
-		editedProduct.setEtatexiste(Product.getEtatexiste());
-		editedProduct.setSubCategory(Product.getSubCategory());
-		return ProductRepository.save(editedProduct);
+		return ProductRepository.save(Product);
 	}
 }

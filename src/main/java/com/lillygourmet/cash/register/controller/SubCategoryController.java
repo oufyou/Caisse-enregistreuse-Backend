@@ -12,8 +12,11 @@ package com.lillygourmet.cash.register.controller;
  * @author Alias King - Younes OUFRID
  */
 
+import com.lillygourmet.cash.register.Exception.ResourceNotFoundException;
+import com.lillygourmet.cash.register.model.Category;
 import com.lillygourmet.cash.register.model.SaleLine;
 import com.lillygourmet.cash.register.model.SubCategory;
+import com.lillygourmet.cash.register.repository.SubCategoryRepository;
 import com.lillygourmet.cash.register.service.CategoryService;
 import com.lillygourmet.cash.register.service.ProductService;
 import com.lillygourmet.cash.register.service.SubCategoryService;
@@ -44,6 +47,8 @@ public class SubCategoryController {
 	private ProductService productService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private SubCategoryRepository subCategoryRepository;
 
 	@GetMapping("api/SubCategories")
 	public ResponseEntity<List<SubCategory>> retrieveAllSubCategories() {
@@ -93,6 +98,22 @@ public class SubCategoryController {
 	public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategory SubCategory) {
 		_log.info("update SubCategory controller...!");
 		SubCategory updatedSubCategory= SubCategoryService.updateSubCategory(SubCategory);
+		return new ResponseEntity<SubCategory>(updatedSubCategory, new HttpHeaders(), HttpStatus.ACCEPTED);
+	}
+
+	// Updating Subcategory
+	@PutMapping("api/SubCategories/{id}")
+	public ResponseEntity<SubCategory> updateSessionPOS(@PathVariable Long id, @RequestBody String SubCategory)throws ResourceNotFoundException {
+		SubCategory subcat = subCategoryRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("SubCategory not found for this id :: " + id));
+		JsonParser parser = new BasicJsonParser();
+		Map<String, Object> SubCategoryPOSJson = parser.parseMap(SubCategory);
+		// Mapping SubCategory object by JSON strategy
+		//subcat.setCategory(categoryService.getCategory(Long.parseLong(SubCategoryPOSJson.get("Category_id").toString())));
+		subcat.setNom(SubCategoryPOSJson.get("Nom").toString());
+		subcat.setDescription(SubCategoryPOSJson.get("Description").toString());
+		SubCategory updatedSubCategory = SubCategoryService.updateSubCategory(subcat);
+		_log.info("update SessionPOS controller...!");
 		return new ResponseEntity<SubCategory>(updatedSubCategory, new HttpHeaders(), HttpStatus.ACCEPTED);
 	}
 }

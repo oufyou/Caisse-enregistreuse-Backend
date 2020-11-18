@@ -53,11 +53,6 @@ public class SubCategoryService {
 	}
 	
 	public SubCategory updateSubCategory(SubCategory SubCategory) {
-		SubCategory editedSubCategory = SubCategoryRepository.getOne(SubCategory.getId());
-		editedSubCategory.setNom(SubCategory.getNom());
-		editedSubCategory.setDescription(SubCategory.getDescription());
-		editedSubCategory.setImagelink(SubCategory.getImagelink());
-		editedSubCategory.setCategory(SubCategory.getCategory());
-		return SubCategoryRepository.save(editedSubCategory);
+		return SubCategoryRepository.save(SubCategory);
 	}
 }

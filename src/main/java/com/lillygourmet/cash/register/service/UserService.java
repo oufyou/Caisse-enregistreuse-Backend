@@ -50,17 +50,6 @@ public class UserService {
 	}
 	
 	public User updateUser(User user) {
-		User editedUser = userRepository.getOne(user.getId());
-		editedUser.setEmail(user.getEmail());
-		editedUser.setFirstName(user.getFirstName());
-		editedUser.setLastName(user.getLastName());
-		editedUser.setAdress(user.getAdress());
-		editedUser.setBdate(user.getBdate());
-		editedUser.setPassword(user.getPassword());
-		editedUser.setPhone(user.getPhone());
-		editedUser.setUsername(user.getUsername());
-		editedUser.setSexe(user.getSexe());
-		editedUser.setRoles(user.getRoles());
-		return userRepository.save(editedUser);
+		return userRepository.save(user);
 	}
 }

@@ -21,7 +21,6 @@ import java.util.List;
 @Repository
 public interface RefundRepository extends CrudRepository<Payment, Long> {
 
-
     @Modifying
     @Query(value = "insert into payments (closed,comment,dateheures,montant,rendre,type,sale_id) VALUES (0,?1,NOW(),?2,?3,?4,?5)", nativeQuery = true)
     @Transactional
