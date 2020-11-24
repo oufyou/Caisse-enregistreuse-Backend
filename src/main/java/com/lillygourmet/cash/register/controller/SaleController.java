@@ -103,7 +103,7 @@ public class SaleController {
 
  */
 
-        Sale Sale = new Sale(userService.getUser(Long.parseLong(saleJson.get("customer_id").toString())), userService.getUser(Long.parseLong(saleJson.get("caissier_id").toString())), saleLineList, Float.parseFloat(saleJson.get("total").toString()), Boolean.parseBoolean(saleJson.get("finished").toString()),saleJson.get("comment").toString());
+        Sale Sale = new Sale(userService.getUser(Long.parseLong(saleJson.get("customer_id").toString())), userService.getUser(Long.parseLong(saleJson.get("caissier_id").toString())), saleLineList, Float.parseFloat(saleJson.get("total").toString()), Boolean.parseBoolean(saleJson.get("finished").toString()),saleJson.get("comment").toString(),Float.parseFloat(saleJson.get("Supplement").toString()));
 
         _log.info("create Sale controller...!");
         Sale savedSale = SaleService.createSale(Sale);

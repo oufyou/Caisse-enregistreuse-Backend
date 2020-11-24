@@ -95,6 +95,22 @@ public class UserController {
 		JsonParser parser = new BasicJsonParser();
 		Map<String, Object> UserPOSJson = parser.parseMap(User);
 		// Mapping Category object by JSON strategy
+		/*
+		* {"FirstName":"",
+				"LastName":"",
+				"Sexe":"",
+				"Bdate":"",
+				"Adress":"",
+				"Email":"",
+				"Phone":"",
+				"UserName":"",
+				"Password":"",
+				"Roles":[
+		{
+				"RoleName":"admin"
+		}],
+		"UpdatedBy":""}
+		* */
 		user.setFirstName(UserPOSJson.get("FirstName").toString());
 		user.setLastName(UserPOSJson.get("LastName").toString());
 		user.setSexe(UserPOSJson.get("Sexe").toString());

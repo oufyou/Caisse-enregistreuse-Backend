@@ -8,6 +8,8 @@
 package com.lillygourmet.cash.register.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.bytebuddy.pool.TypePool;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -60,6 +62,9 @@ public class Sale {
     @Column(nullable = true)
     private String comment;
 
+    @Column(columnDefinition="float default '0.00'",nullable = true)
+    private Float Supplement;
+
     public Sale() {
     }
 
@@ -81,6 +86,25 @@ public class Sale {
         this.total = total;
         this.finished = finished;
         this.comment = comment;
+    }
+
+    public Sale(User customer, User caissier, List<SaleLine> saleLines, @NotBlank @Size(max = 255) Float total, @NotBlank Boolean finished, @NotBlank String comment,Float supplement) {
+        this.customer = customer;
+        this.caissier = caissier;
+        this.saleLines = saleLines;
+        this.total = total;
+        this.finished = finished;
+        this.comment = comment;
+        this.Supplement=supplement;
+    }
+
+
+    public Float getSupplement() {
+        return Supplement;
+    }
+
+    public void setSupplement(Float supplement) {
+        Supplement = supplement;
     }
 
     public Long getId() {
