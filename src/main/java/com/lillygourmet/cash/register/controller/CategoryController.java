@@ -28,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,7 @@ public class CategoryController {
 		// Mapping Category object by JSON strategy
 		cat.setNom(CategoryPOSJson.get("Nom").toString());
 		cat.setDescription(CategoryPOSJson.get("Description").toString());
+		cat.setDisplay(Boolean.parseBoolean(CategoryPOSJson.get("display").toString()));
 		Category updatedCategory = CategoryService.updateCategory(cat);
 		_log.info("update Category controller...!");
 		return new ResponseEntity<Category>(updatedCategory, new HttpHeaders(), HttpStatus.ACCEPTED);

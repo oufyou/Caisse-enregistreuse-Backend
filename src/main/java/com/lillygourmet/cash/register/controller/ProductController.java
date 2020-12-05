@@ -74,7 +74,7 @@ public class ProductController {
 		JsonParser parser = new BasicJsonParser();
 		Map<String, Object> product = parser.parseMap(Product);
 		// mapping of product object
-		Product p = new Product(product.get("nom").toString(),product.get("description").toString(),product.get("codebarre").toString(),Float.parseFloat(product.get("pu").toString()),product.get("etatexiste").toString(),product.get("codecolor").toString(),subCategoryService.getSubCategory(Long.parseLong(product.get("subcategory_id").toString())));
+		Product p = new Product(product.get("nom").toString(),product.get("description").toString(),product.get("codebarre").toString(),Float.parseFloat(product.get("pu").toString()),product.get("etatexiste").toString(),product.get("codecolor").toString(),subCategoryService.getSubCategory(Long.parseLong(product.get("subcategory_id").toString())),Boolean.parseBoolean(product.get("display").toString()));
 		_log.info("create Product controller...!");
 		Product savedProduct = ProductService.createProduct(p);
 		return new ResponseEntity<Product>(savedProduct, new HttpHeaders(), HttpStatus.CREATED);
@@ -112,6 +112,7 @@ public class ProductController {
 		prod.setEtatexiste(ProductPOSJson.get("EtatExiste").toString());
 		prod.setCodecolor(ProductPOSJson.get("CodeColor").toString());
 		prod.setCodebarre(ProductPOSJson.get("CodeBarre").toString());
+		prod.setDisplay(Boolean.parseBoolean(ProductPOSJson.get("display").toString()));
 		Product updatedProduct = ProductService.updateProduct(prod);
 
 		_log.info("update Product controller...!");

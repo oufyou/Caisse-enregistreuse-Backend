@@ -61,6 +61,10 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SubCategory subCategory;
 
+    @NotBlank
+    @Column(columnDefinition="tinyint(1) default 1")
+    private Boolean display;
+
     public Product() {
     }
 
@@ -83,6 +87,25 @@ public class Product {
         this.etatexiste = etatexiste;
         this.codecolor = codecolor;
         this.subCategory = subCategory;
+    }
+
+    public Product(@NotBlank @Size(max = 255) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 155) String codebarre, @NotBlank @Size(max = 155) float pu, @NotBlank @Size(max = 155) String etatexiste, @NotBlank @Size(max = 155) String codecolor, SubCategory subCategory, @NotBlank Boolean display) {
+        this.nom = nom;
+        this.description = description;
+        this.codebarre = codebarre;
+        this.pu = pu;
+        this.etatexiste = etatexiste;
+        this.codecolor = codecolor;
+        this.subCategory = subCategory;
+        this.display = display;
+    }
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 
     public SubCategory getSubCategory() {

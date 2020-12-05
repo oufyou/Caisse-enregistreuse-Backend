@@ -50,6 +50,10 @@ public class SubCategory {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
+    @NotBlank
+    @Column(columnDefinition="tinyint(1) default 1")
+    private Boolean display;
+
     public SubCategory() {
     }
 
@@ -66,6 +70,31 @@ public class SubCategory {
         this.description = description;
         this.imagelink = imagelink;
         this.category = category;
+    }
+
+    public SubCategory(@NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, Category category, @NotBlank Boolean display) {
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
+        this.category = category;
+        this.display = display;
+    }
+
+    public SubCategory(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, Category category, @NotBlank Boolean display) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
+        this.category = category;
+        this.display = display;
+    }
+
+    public Boolean getdisplay() {
+        return display;
+    }
+
+    public void setdisplay(Boolean display) {
+        this.display = display;
     }
 
     public Category getCategory() {

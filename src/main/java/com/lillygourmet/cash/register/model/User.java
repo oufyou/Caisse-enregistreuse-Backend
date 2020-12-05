@@ -113,10 +113,33 @@ public class User {
     @Column(name="updated_by")
     private String updatedBy;
 
+    @NotBlank
+    @Column(columnDefinition="tinyint(1) default 1")
+    private Boolean display;
+
     public User() {
     }
 
-    public User(String firstName, String lastName,String username,String email,String password) {
+    public User(Long id, @NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String sexe, @NotBlank @Size(max = 20) Date bdate, @NotBlank @Size(max = 155) String adress, @NotBlank @Size(max = 20) String phone, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, Set<Role> roles, Date createdAt, String createdBy, Date updatedAt, String updatedBy, @NotBlank Boolean display) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sexe = sexe;
+        this.bdate = bdate;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
+        this.display = display;
+    }
+
+    public User(String firstName, String lastName, String username, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -206,6 +229,47 @@ public class User {
         this.password = password;
         this.roles = roles;
         this.updatedBy = updatedBy;
+    }
+
+    public User(@NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String sexe, @NotBlank @Size(max = 20) Date bdate, @NotBlank @Size(max = 155) String adress, @NotBlank @Size(max = 20) String phone, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, Set<Role> roles, String updatedBy, @NotBlank Boolean display) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sexe = sexe;
+        this.bdate = bdate;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.updatedBy = updatedBy;
+        this.display = display;
+    }
+
+    public User(@NotBlank @Size(max = 20) String firstName, @NotBlank @Size(max = 20) String lastName, @NotBlank @Size(max = 20) String sexe, @NotBlank @Size(max = 20) Date bdate, @NotBlank @Size(max = 155) String adress, @NotBlank @Size(max = 20) String phone, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, Set<Role> roles, Date createdAt, String createdBy, Date updatedAt, String updatedBy, @NotBlank Boolean display) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sexe = sexe;
+        this.bdate = bdate;
+        this.adress = adress;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
+        this.display = display;
+    }
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 
     public Long getId() {

@@ -162,6 +162,7 @@ public class UserController {
 		});
 			user.setRoles(roles);
 			user.setUpdatedBy(UserPOSJson.get("UpdatedBy").toString());
+			user.setDisplay(Boolean.parseBoolean(UserPOSJson.get("display").toString()));
 			User updatedUser = userService.updateUser(user);
 			_log.info("update User controller...!");
 			return new ResponseEntity<User>(updatedUser, new HttpHeaders(), HttpStatus.ACCEPTED);

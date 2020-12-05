@@ -46,9 +46,20 @@ public class Category {
     @Column(nullable = true)
     private String imagelink;
 
+    @NotBlank
+    @Column(columnDefinition="tinyint(1) default 1")
+    private Boolean display;
 
 
     public Category() {
+    }
+
+    public Category(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, @NotBlank Boolean display) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
+        this.display = display;
     }
 
     public Category(Long id, @NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink) {
@@ -62,6 +73,22 @@ public class Category {
         this.nom = nom;
         this.description = description;
         this.imagelink = imagelink;
+    }
+
+
+    public Category(@NotBlank @Size(max = 155) String nom, @NotBlank @Size(max = 255) String description, @NotBlank @Size(max = 255) String imagelink, @NotBlank Boolean display) {
+        this.nom = nom;
+        this.description = description;
+        this.imagelink = imagelink;
+        this.display = display;
+    }
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 
     public Long getId() {

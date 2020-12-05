@@ -80,7 +80,7 @@ public class SubCategoryController {
 		JsonParser parser = new BasicJsonParser();
 		Map<String, Object> subcategory = parser.parseMap(SubCategory);
 		// mapping of subcategory object
-		SubCategory sb = new SubCategory(subcategory.get("nom").toString(),subcategory.get("description").toString(),subcategory.get("imagelink").toString(),categoryService.getCategory(Long.parseLong(subcategory.get("category_id").toString())));
+		SubCategory sb = new SubCategory(subcategory.get("nom").toString(),subcategory.get("description").toString(),subcategory.get("imagelink").toString(),categoryService.getCategory(Long.parseLong(subcategory.get("category_id").toString())),Boolean.parseBoolean(subcategory.get("display").toString()));
 		_log.info("create SubCategory controller...!");
 		SubCategory savedSubCategory = SubCategoryService.createSubCategory(sb);
 		return new ResponseEntity<SubCategory>(savedSubCategory, new HttpHeaders(), HttpStatus.CREATED);
@@ -112,6 +112,7 @@ public class SubCategoryController {
 		//subcat.setCategory(categoryService.getCategory(Long.parseLong(SubCategoryPOSJson.get("Category_id").toString())));
 		subcat.setNom(SubCategoryPOSJson.get("Nom").toString());
 		subcat.setDescription(SubCategoryPOSJson.get("Description").toString());
+		subcat.setdisplay(Boolean.parseBoolean(SubCategoryPOSJson.get("display").toString()));
 		SubCategory updatedSubCategory = SubCategoryService.updateSubCategory(subcat);
 		_log.info("update SubCategory controller...!");
 		return new ResponseEntity<SubCategory>(updatedSubCategory, new HttpHeaders(), HttpStatus.ACCEPTED);
