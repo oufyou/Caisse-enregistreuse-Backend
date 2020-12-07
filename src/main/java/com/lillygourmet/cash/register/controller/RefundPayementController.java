@@ -62,6 +62,9 @@ public class RefundPayementController {
             _log.info("refund record not added controller...!");
         }
         int update = refundRepository.updatePaymentRefund(Long.parseLong(refundJson.get("sale_id").toString()));
+        if (Float.parseFloat(refundJson.get("rendre").toString())>=0){
+            int saleupdate = refundRepository.updateSaleRefund(Long.parseLong(refundJson.get("sale_id").toString()));
+        }
         _log.info("refund payment executed controller...!");
         return new ResponseEntity<Boolean>(rep, new HttpHeaders(), HttpStatus.OK);
     }

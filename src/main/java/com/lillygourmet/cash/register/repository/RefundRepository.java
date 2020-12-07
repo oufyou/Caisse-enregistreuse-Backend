@@ -31,6 +31,10 @@ public interface RefundRepository extends CrudRepository<Payment, Long> {
     @Transactional
     int updatePaymentRefund(Long id);
 
+    @Modifying(clearAutomatically = true)
+    @Query(value= "update sales set closed=1 where id=?1",nativeQuery =true)
+    @Transactional
+    int updateSaleRefund(Long id);
 
     // Getter le crédit restant à rembourser d'une vente donnée par un client donné
     @Query(value="SELECT p.id idp,p.closed,p.comment,p.dateheures,p.montant,p.rendre,p.type,p.sale_id FROM payments p,sales s WHERE p.sale_id=?1 and s.customer_id=?2 order by p.dateheures desc limit 1;",nativeQuery=true)
