@@ -47,7 +47,7 @@ public class RefundPayementController {
 
 
 
-    @PostMapping("api/users")
+    @PostMapping("api/RefundPayment")
     @PreAuthorize("hasAnyRole('ADMIN','CASHIER')")
     public ResponseEntity<Boolean> retrieveSaleById(@RequestBody String refundpayment) {
         Boolean rep = false;
