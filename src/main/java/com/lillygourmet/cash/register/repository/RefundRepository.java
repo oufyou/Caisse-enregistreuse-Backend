@@ -33,7 +33,7 @@ public interface RefundRepository extends CrudRepository<Payment, Long> {
 
 
     // Getter le crédit restant à rembourser d'une vente donnée par un client donné
-    @Query(value="SELECT p.id idp,p.closed,p.comment,p.dateheures,p.montant,p.rendre,p.type,p.sale_id FROM payments p,sales s WHERE p.sale_id=?1 and p.closed=0 and s.customer_id=?2 order by p.dateheures desc limit 1;",nativeQuery=true)
+    @Query(value="SELECT p.id idp,p.closed,p.comment,p.dateheures,p.montant,p.rendre,p.type,p.sale_id FROM payments p,sales s WHERE p.sale_id=?1 and s.customer_id=?2 order by p.dateheures desc limit 1;",nativeQuery=true)
     List<Object[]> credit_a_rembourser(Long sale_id,Long customer_id);
 
 }
