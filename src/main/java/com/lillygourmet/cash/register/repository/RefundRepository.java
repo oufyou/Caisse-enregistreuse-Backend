@@ -32,7 +32,7 @@ public interface RefundRepository extends CrudRepository<Payment, Long> {
     int updatePaymentRefund(Long id);
 
     @Modifying(clearAutomatically = true)
-    @Query(value= "update sales set closed=1 where id=?1",nativeQuery =true)
+    @Query(value= "update sales set finished=1 where id=?1",nativeQuery =true)
     @Transactional
     int updateSaleRefund(Long id);
 
